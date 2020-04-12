@@ -1,2 +1,2 @@
-# algoprep
-Implementation of algorithms.
+# dsaprep
+Implementation of data structures and algorithms.
