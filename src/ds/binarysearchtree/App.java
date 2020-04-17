@@ -15,13 +15,10 @@ public class App {
         tree.insert(101, "One hundred and one");
         tree.insert(150, "One hundred and fifty");
         tree.insert(9, "Nine");
+        tree.insert(4, "Four");
         tree.insert(30, "Thirty");
         tree.insert(19, "Nineteen");
 
-        tree.remove(62);
-
-        System.out.println(tree.find(53).rightChild.value);
-        System.out.println(tree.findMin().value);
-        System.out.println(tree.findMax().value);
+        tree.render("console");
     }
 }
