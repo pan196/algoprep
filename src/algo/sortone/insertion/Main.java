@@ -1,22 +1,22 @@
-package com.sort.insertion;
+package algo.sortone.insertion;
 
-import com.sort.enums.Order;
+import algo.helper.enums.SortOrder;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int list[] = {59, 19, 23, 119, 11, 2, 53, 28, 33};
+        int[] list = {59, 19, 23, 119, 11, 2, 53, 28, 33};
         System.out.println(Arrays.toString(list));
-        System.out.println(Arrays.toString(InsertionSort(list, Order.ASC)));
+        System.out.println(Arrays.toString(InsertionSort(list, SortOrder.ASC)));
     }
 
-    private static int[] InsertionSort(int[] list, Order direction) {
+    private static int[] InsertionSort(int[] list, SortOrder direction) {
         int temp;
 
         for (int i = 1; i < list.length; i++) {
 
             for (int j = i; j > 0; j--) {
-                if (direction == Order.ASC) {
+                if (direction == SortOrder.ASC) {
                     if (list[j] < list[j - 1]) {
                         temp = list[j];
                         list[j] = list[j - 1];

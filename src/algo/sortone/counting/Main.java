@@ -1,12 +1,10 @@
-package com.sort.counting;
-
-import com.sort.enums.Order;
+package algo.sortone.counting;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int list[] = {13, 6, 12, 1, 14, 7, 2, 9, 15};
+        int[] list = {13, 6, 12, 1, 14, 7, 2, 9, 15};
         System.out.println(Arrays.toString(countingSort(list)));
     }
 

@@ -1,11 +1,10 @@
-package com.sort.radix;
+package algo.sortone.radix;
 
-import com.sort.enums.Order;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int list[] = {1234, 234, 233, 1546, 2357, 9432, 2347, 5424, 7493};
+        int[] list = {1234, 234, 233, 1546, 2357, 9432, 2347, 5424, 7493};
         System.out.println(Arrays.toString(radixSort(list)));
     }
 
@@ -23,8 +22,8 @@ public class Main {
             int[] tempDigitArray = new int[10];
             Arrays.fill(tempDigitArray, 0);
 
-            for (int j = 0; j < list.length; j++) {
-                int digit = extractDigit(list[j], i);
+            for (int value : list) {
+                int digit = extractDigit(value, i);
                 tempDigitArray[digit]++;
             }
 
@@ -40,9 +39,7 @@ public class Main {
                 tempDigitArray[extractDigit(list[j], i)]--;
             }
 
-            for (int j = 0; j < tempNumberArray.length; j++) {
-                list[j] = tempNumberArray[j];
-            }
+            System.arraycopy(tempNumberArray, 0, list, 0, tempNumberArray.length);
         }
 
         return list;

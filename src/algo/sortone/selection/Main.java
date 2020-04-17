@@ -1,15 +1,15 @@
-package com.sort.selection;
+package algo.sortone.selection;
 
-import com.sort.enums.Order;
+import algo.helper.enums.SortOrder;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int list[] = {59, 19, 23, 119, 11, 2, 53, 28, 33};
-        System.out.println(Arrays.toString(SelectionSort(list, Order.ASC)));
+        int[] list = {59, 19, 23, 119, 11, 2, 53, 28, 33};
+        System.out.println(Arrays.toString(SelectionSort(list, SortOrder.ASC)));
     }
 
-    private static int[] SelectionSort(int[] list, Order direction) {
+    private static int[] SelectionSort(int[] list, SortOrder direction) {
         int temp;
 
 
@@ -18,7 +18,7 @@ public class Main {
             int indexMin = i;
 
             for (int j = i; j < list.length - 1; j++) {
-                if (direction == Order.ASC) {
+                if (direction == SortOrder.ASC) {
                     if (list[j + 1] < extreme) {
                         extreme = list[j + 1];
                         indexMin = j + 1;
