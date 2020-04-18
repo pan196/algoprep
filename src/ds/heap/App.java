@@ -11,10 +11,5 @@ public class App {
         heap.insert(9);
 
         heap.render();
-
-        Node removedNode = heap.remove();
-        System.out.println(removedNode.getKey());
-
-        heap.render();
     }
 }

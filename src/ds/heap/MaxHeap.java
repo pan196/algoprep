@@ -1,5 +1,7 @@
 package ds.heap;
 
+import java.util.Arrays;
+
 /**
  * MaxHeap data structure
  */
@@ -126,12 +128,115 @@ public class MaxHeap {
         return maxChildIndex;
     }
 
+    /**
+     * Default render implementation
+     */
     public void render() {
-        System.out.println();
-        for (int i = 0; i < this.currentSize; i++) {
-            Node node = heapArray[i];
-            System.out.println(node.getKey());
+        this.render("console");
+    }
+
+    /**
+     * Renders the heap
+     * @param option method of rendering (supported methods: console)
+     */
+    public void render(String option) {
+        switch (option) {
+            case "console":
+            default:
+                consoleRender();
         }
-        System.out.println();
+    }
+
+    /**
+     * Renders the tree in the console
+     */
+    private void consoleRender() {
+        // Get the number of levels
+        if (this.currentSize == 0) {
+            return;
+        }
+        int levels = (int)(Math.log(this.currentSize) / Math.log(2)) + 1;;
+        // Get the row length
+        int rowLength = (int)(Math.pow(2, levels-1) * 2) - 1;
+
+        for (int i = 1; i <= levels; i++) {
+            // Number of nodes per level
+            int rowFullCells = (int)Math.pow(2, i-1);
+            // Container for node indexes for that level
+            int filledRowIndexes[] = new int[rowFullCells];
+            // Each row starts with N empty cells
+            // If the levels are 4
+            // 1st level will have 7 empty starting blocks
+            // 2nd - 3
+            // 3rd - 1
+            // 4th - 0
+            int rowBlockEmptyCells = (int)Math.floor(rowLength / Math.pow(2, i));
+
+            // Using the starting empty slots to calculate filled indexes
+            for (int j = 0; j < rowFullCells; j++) {
+                if (j == 0) {
+                    filledRowIndexes[j] = j + rowBlockEmptyCells;
+                } else {
+                    filledRowIndexes[j] = filledRowIndexes[j-1] + (rowBlockEmptyCells * 2) + 2;
+                }
+            }
+
+            // Setting current cell to 0 index
+            int currentRowIndex = 0;
+            while (currentRowIndex < rowLength) {
+                // Rendering current cell
+                this.renderCell(i, currentRowIndex, filledRowIndexes);
+                // Increasing cell index
+                currentRowIndex++;
+            }
+            // Print new line for the next level
+            System.out.println();
+        }
+    }
+
+    /**
+     * Renders the current cell in the row
+     * @param row tree level
+     * @param index index to render
+     * @param filledRowIndexes array with non empty indexes
+     */
+    private void renderCell(int row, int index, int[] filledRowIndexes) {
+        // Get the position of the current node-to-render
+        int nodePos = Arrays.binarySearch(filledRowIndexes, index);
+
+        if (nodePos > -1) {
+            if (filledRowIndexes.length == 1) {
+                // If the filled row index per current is a single one - render root
+                System.out.print(" " + this.heapArray[0].getKey() + " ");
+            } else {
+                String keyToPrint = this.printKeyByRowPos(row, nodePos);
+                // Render node value or "--" if no node is inserted in the position
+                System.out.print(" " + keyToPrint + " ");
+            }
+        } else {
+            // If the there is no node on the position - render empty element
+            System.out.print("    ");
+        }
+    }
+
+    /**
+     * Returns node key or "--" if no node is inserted on that position
+     * @param row tree level
+     * @param nodePos the position of the node in the tree level
+     * @return node key or "--" if no node is inserted on that position
+     */
+    private String printKeyByRowPos(int row, int nodePos) {
+        // Get the indexes before starting of the current level
+        int headingIndexes = (int)Math.pow(2, row-1) - 1;
+        // Get the index of the current node in the heap
+        int positionInHeap = headingIndexes + nodePos;
+
+        if (positionInHeap >= this.currentSize) {
+            // If current node exceeds current size - render placeholder
+            return "--";
+        } else {
+            // If current node is in the range of current size - render it's key
+            return Integer.toString(this.heapArray[positionInHeap].getKey());
+        }
     }
 }
